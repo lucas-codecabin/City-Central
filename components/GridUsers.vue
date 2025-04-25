@@ -1,17 +1,20 @@
 <script setup>
 const supabase = useSupabaseClient();
 
-const { data, error } = await useAsyncData("user_with_role", async () => {
-  const { data } = await supabase.from("user_with_role").select();
-  return data;
-});
+const { data: userDetails, error } = await useAsyncData(
+  "user_with_role",
+  async () => {
+    const { data } = await supabase.from("user_with_role").select();
+    return data;
+  }
+);
 </script>
 
 <template>
   <div class="grid grid-cols-1 md:grid-cols-5 p-8 gap-8">
     <div class="card col-span-5">
       <DataTable
-        :value="data"
+        :value="userDetails"
         tableStyle="width: 100%"
         stripedRows
         removableSort

@@ -1,7 +1,7 @@
 <script setup>
 const supabase = useSupabaseClient();
 
-const { data: rolesWithAccess, error } = await useAsyncData(
+const { data: roleDetails, error } = await useAsyncData(
   "role_access_counts",
   async () => {
     const { data } = await supabase.from("role_access_counts").select();
@@ -14,7 +14,7 @@ const { data: rolesWithAccess, error } = await useAsyncData(
   <div class="grid grid-cols-1 md:grid-cols-5 p-8 gap-8">
     <div class="card col-span-5">
       <DataTable
-        :value="rolesWithAccess"
+        :value="roleDetails"
         tableStyle="width: 100%"
         stripedRows
         removableSort
@@ -26,6 +26,17 @@ const { data: rolesWithAccess, error } = await useAsyncData(
           field="number_of_locations"
           header="Number of Accesses"
           sortable
+        ></Column>
+        <Column class="!text-center">
+          <template #body="{ data }">
+            <RouterLink :to="`/edit-role/${data.role_id}`"
+              ><Button
+                type="button"
+                label="Edit"
+                severity="primary"
+                class="py-1 px-8 font-title rounded-full"
+              />
+            </RouterLink> </template
         ></Column>
       </DataTable>
     </div>
