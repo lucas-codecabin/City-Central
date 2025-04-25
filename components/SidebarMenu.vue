@@ -1,9 +1,12 @@
 <script setup>
-import { RouterLink } from "vue-router";
-import { ref } from "vue";
+import { RouterLink, useRoute } from "vue-router";
+import { ref, computed } from "vue";
 
 const adminExpanded = ref(false);
 const cityAquaticsExpanded = ref(false);
+
+const route = useRoute();
+const currentPath = computed(() => route.path);
 </script>
 
 <template>
@@ -17,9 +20,12 @@ const cityAquaticsExpanded = ref(false);
       </div>
 
       <div class="flex flex-col gap-2 text-white text-sm">
+        <!-- Dashboard -->
         <RouterLink
           to="/dashboard"
-          class="flex justify-between mt-4 p-2 items-center bg-primary-500 rounded-lg hover:bg-primary-300 hover:drop-shadow-md"
+          :class="`${
+            currentPath === '/dashboard' ? 'bg-primary-500' : 'bg-transparent'
+          } flex justify-between mt-4 p-2 items-center rounded-lg hover:bg-primary-300 hover:drop-shadow-md`"
         >
           <div class="flex gap-2 items-center">
             <i class="pi pi-chart-bar"></i>
@@ -28,10 +34,11 @@ const cityAquaticsExpanded = ref(false);
           <i class="pi pi-angle-right"></i>
         </RouterLink>
 
+        <!-- Admin -->
         <div
           :class="`${
             adminExpanded ? 'bg-white/5' : ''
-          } flex flex-col bg-primary-950 rounded-lg border-white hover:border-white transition-all`"
+          } flex flex-col rounded-lg border-white hover:border-white transition-all`"
         >
           <a
             @click="
@@ -39,9 +46,11 @@ const cityAquaticsExpanded = ref(false);
                 adminExpanded = !adminExpanded;
               }
             "
-            :class="`${
-              adminExpanded ? 'bg-transparent rounded-b-none' : ''
-            } flex w-full justify-between p-2 items-center rounded-lg bg-primary-950 border-none hover:bg-primary-300 hover:drop-shadow-md cursor-pointer`"
+            :class="`${adminExpanded ? 'rounded-b-none' : ''} ${
+              currentPath === '/roles' && 'bg-primary-500'
+            } ${
+              currentPath === '/users' && 'bg-primary-500'
+            }  flex w-full justify-between p-2 items-center rounded-lg border-none hover:bg-primary-300 hover:drop-shadow-md cursor-pointer`"
           >
             <div class="flex gap-2 items-center">
               <i class="pi pi-cog"></i>
@@ -56,15 +65,19 @@ const cityAquaticsExpanded = ref(false);
           >
             <RouterLink
               to="/roles"
-              class="flex w-full justify-between p-2 pl-8 items-center hover:bg-primary-300 hover:drop-shadow-md"
+              :class="`${
+                currentPath === '/roles' && 'bg-primary-500'
+              } flex w-full justify-between p-2 pl-8 items-center hover:bg-primary-300 hover:drop-shadow-md`"
             >
               <p>Role Management</p>
               <i class="pi pi-angle-right"></i>
             </RouterLink>
 
             <RouterLink
-              to="#"
-              class="flex w-full justify-between p-2 pl-8 items-center hover:bg-primary-300 hover:drop-shadow-md rounded-b-lg"
+              to="/users"
+              :class="`${
+                currentPath === '/users' && 'bg-primary-500'
+              } flex w-full justify-between p-2 pl-8 items-center hover:bg-primary-300 hover:drop-shadow-md rounded-b-lg`"
             >
               <p>User Management</p>
               <i class="pi pi-angle-right"></i>
@@ -72,6 +85,7 @@ const cityAquaticsExpanded = ref(false);
           </div>
         </div>
 
+        <!-- City Aquatics Website -->
         <div
           :class="`${
             cityAquaticsExpanded ? 'bg-white/5' : ''
@@ -148,9 +162,14 @@ const cityAquaticsExpanded = ref(false);
           </div>
         </div>
 
+        <!-- Pool Testing -->
         <RouterLink
           to="#"
-          class="flex justify-between p-2 items-center rounded-lg hover:bg-primary-300 hover:drop-shadow-md"
+          :class="`${
+            currentPath === '/pool-testing'
+              ? 'bg-primary-500'
+              : 'bg-transparent'
+          } flex justify-between p-2 items-center rounded-lg hover:bg-primary-300 hover:drop-shadow-md`"
         >
           <div class="flex gap-2 items-center">
             <i class="pi pi-list-check"></i>
@@ -159,9 +178,14 @@ const cityAquaticsExpanded = ref(false);
           <i class="pi pi-angle-right"></i>
         </RouterLink>
 
+        <!-- Lane Availability -->
         <RouterLink
           to="#"
-          class="flex justify-between p-2 items-center rounded-lg hover:bg-primary-300 hover:drop-shadow-md"
+          :class="`${
+            currentPath === '/lane-availability'
+              ? 'bg-primary-500'
+              : 'bg-transparent'
+          } flex justify-between p-2 items-center rounded-lg hover:bg-primary-300 hover:drop-shadow-md`"
         >
           <div class="flex gap-2 items-center">
             <i class="pi pi-chart-line"></i>
