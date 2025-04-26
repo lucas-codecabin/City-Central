@@ -2,26 +2,10 @@
 import { Button } from "primevue";
 
 const supabase = useSupabaseClient();
-const route = useRoute();
 const router = useRouter();
-const roleId = route.params.id;
 
 const newTitle = ref("");
 const selectedLocations = ref([]);
-
-// Fetch role details
-const { data: roleDetails, error: roleDetailsError } = await useAsyncData(
-  "role_details",
-  async () => {
-    const { data, error } = await supabase
-      .from("roles")
-      .select("title")
-      .eq("id", roleId)
-      .single();
-    if (error) throw error;
-    return data;
-  }
-);
 
 // Fetch all locations
 const { data: allLocations, error: allLocationsError } = await useAsyncData(
@@ -33,59 +17,34 @@ const { data: allLocations, error: allLocationsError } = await useAsyncData(
   }
 );
 
-// Fetch locations that this role is authorised
-const { data: roleLocations, error: roleLocationsError } = await useAsyncData(
-  "role_locations",
-  async () => {
-    const { data, error } = await supabase
-      .from("role_locations")
-      .select("location_id")
-      .eq("role_id", roleId);
-    if (error) throw error;
-    return data.map((location) => location.location_id);
-  }
-);
-
-watchEffect(() => {
-  if (!newTitle.value && roleDetails.value?.title) {
-    newTitle.value = roleDetails.value.title;
-  }
-
-  if (allLocations.value && roleLocations.value) {
-    selectedLocations.value = allLocations.value.filter((location) =>
-      roleLocations.value.includes(location.id)
-    );
-  }
-});
-
-// Update role title and authorisation
-const updateRole = async () => {
+// Add role title and authorisation
+const addRole = async () => {
   try {
-    const { error: updateTitleError } = await supabase
+    const { data: newRole, error: addRoleError } = await supabase
       .from("roles")
-      .update({ title: newTitle.value })
-      .eq("id", roleId);
-    if (updateTitleError) throw updateTitleError;
+      .insert([{ title: newTitle.value }])
+      .select("id")
+      .single();
+    if (addRoleError) throw addRoleError;
 
-    const { error: deleteAuthorisationError } = await supabase
-      .from("role_locations")
-      .delete()
-      .eq("role_id", roleId);
-    if (deleteAuthorisationError) throw deleteAuthorisationError;
+    const newRoleId = newRole.id;
 
     const newAuthorisation = selectedLocations.value.map((location) => ({
-      role_id: roleId,
+      role_id: newRoleId,
       location_id: location.id,
     }));
 
-    const { error: insertAuthorisationError } = await supabase
-      .from("role_locations")
-      .insert(newAuthorisation);
-    if (insertAuthorisationError) throw insertAuthorisationError;
+    if (newAuthorisation.length > 0) {
+      const { error: insertAuthorisationError } = await supabase
+        .from("role_locations")
+        .insert(newAuthorisation);
+      if (insertAuthorisationError) throw insertAuthorisationError;
+    }
 
     router.push("/roles");
   } catch (error) {
-    alert("Failed to update role");
+    alert("Failed to add role");
+    console.error(error);
   }
 };
 </script>
@@ -93,7 +52,7 @@ const updateRole = async () => {
 <template>
   <div class="grid grid-cols-1 md:grid-cols-5 p-8 gap-4">
     <h1 class="font-title text-xl uppercase font-bold col-span-5">
-      Update Role:
+      Add New Role:
     </h1>
 
     <div class="card col-span-5 space-y-8">
@@ -123,8 +82,8 @@ const updateRole = async () => {
         <Button
           type="button"
           severity="primary"
-          label="Update Role"
-          @click="updateRole"
+          label="Add Role"
+          @click="addRole"
           class="py-1 px-4 font-title rounded-full"
         />
         <RouterLink to="/roles"

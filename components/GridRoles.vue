@@ -12,6 +12,15 @@ const { data: roleDetails, error } = await useAsyncData(
 
 <template>
   <div class="grid grid-cols-1 md:grid-cols-5 p-8 gap-8">
+    <RouterLink to="/add-role" class="col-span-5">
+      <Button
+        type="button"
+        label="Add Role"
+        severity="primary"
+        class="py-1 px-8 font-title rounded-full"
+      />
+    </RouterLink>
+
     <div class="card col-span-5">
       <DataTable
         :value="roleDetails"
@@ -22,13 +31,15 @@ const { data: roleDetails, error } = await useAsyncData(
         :sortOrder="-1"
       >
         <Column field="role_title" header="Title" sortable></Column>
+
         <Column
           field="number_of_locations"
           header="Number of Accesses"
           sortable
         ></Column>
-        <Column class="!text-center">
-          <template #body="{ data }">
+
+        <Column class="!text-center max-w-fit"
+          ><template #body="{ data }">
             <RouterLink :to="`/edit-role/${data.role_id}`"
               ><Button
                 type="button"
@@ -36,8 +47,9 @@ const { data: roleDetails, error } = await useAsyncData(
                 severity="primary"
                 class="py-1 px-8 font-title rounded-full"
               />
-            </RouterLink> </template
-        ></Column>
+            </RouterLink>
+          </template>
+        </Column>
       </DataTable>
     </div>
   </div>
