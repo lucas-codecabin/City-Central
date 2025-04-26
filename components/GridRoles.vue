@@ -3,12 +3,13 @@ const supabase = useSupabaseClient();
 
 const roles = ref([]);
 
+// Get current user data
 const { data: currentUser, error: currentUserError } =
   await supabase.auth.getUser();
 
-const { data: userDetails, error: userDetailsError } = await useAsyncData(
-  "current_user_with_role",
-  async () => {
+// Get current user role
+const { data: currentUserDetails, error: currentUserDetailsError } =
+  await useAsyncData("current_user_with_role", async () => {
     if (!currentUser) throw new Error("No authenticated user found");
 
     const { data, error } = await supabase
@@ -19,8 +20,7 @@ const { data: userDetails, error: userDetailsError } = await useAsyncData(
 
     if (error) throw error;
     return data;
-  }
-);
+  });
 
 const fetchRoles = async () => {
   const { data, error } = await supabase.from("role_access_counts").select();
@@ -52,7 +52,7 @@ const deleteRole = async (roleId) => {
 <template>
   <div class="grid grid-cols-1 md:grid-cols-5 p-8 gap-8">
     <RouterLink
-      v-if="userDetails.role_title === 'Codecabin'"
+      v-if="currentUserDetails.role_title === 'Codecabin'"
       to="/add-role"
       class="col-span-5"
     >
@@ -82,7 +82,7 @@ const deleteRole = async (roleId) => {
         ></Column>
 
         <Column
-          v-if="userDetails.role_title === 'Codecabin'"
+          v-if="currentUserDetails.role_title === 'Codecabin'"
           class="!text-center w-10"
           ><template #body="{ data }">
             <RouterLink :to="`/edit-role/${data.role_id}`"
@@ -97,7 +97,7 @@ const deleteRole = async (roleId) => {
         </Column>
 
         <Column
-          v-if="userDetails.role_title === 'Codecabin'"
+          v-if="currentUserDetails.role_title === 'Codecabin'"
           class="!text-center w-10"
         >
           <template #body="{ data }">
