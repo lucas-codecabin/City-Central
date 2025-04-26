@@ -41,7 +41,6 @@ const deleteRole = async (roleId) => {
   const { error } = await supabase.from("roles").delete().eq("id", roleId);
 
   if (!error) {
-    alert("Role deleted successfully!");
     await fetchRoles();
   } else {
     console.error("Failed to delete role", error);
