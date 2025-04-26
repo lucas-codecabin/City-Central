@@ -1,13 +1,34 @@
 <script setup>
 const supabase = useSupabaseClient();
 
-const { data: roleDetails, error } = await useAsyncData(
-  "role_access_counts",
-  async () => {
-    const { data } = await supabase.from("role_access_counts").select();
-    return data;
+const roles = ref([]);
+
+const fetchRoles = async () => {
+  const { data, error } = await supabase.from("role_access_counts").select();
+
+  if (!error) {
+    roles.value = data;
+  } else {
+    console.error("Error fetching roles", error);
   }
-);
+};
+
+await fetchRoles();
+
+const deleteRole = async (roleId) => {
+  const confirmDelete = confirm("Are you sure you want to delete this role?");
+  if (!confirmDelete) return;
+
+  const { error } = await supabase.from("roles").delete().eq("id", roleId);
+
+  if (!error) {
+    alert("Role deleted successfully!");
+    await fetchRoles();
+  } else {
+    console.error("Failed to delete role", error);
+    alert("Failed to delete role");
+  }
+};
 </script>
 
 <template>
@@ -17,13 +38,13 @@ const { data: roleDetails, error } = await useAsyncData(
         type="button"
         label="Add Role"
         severity="primary"
-        class="py-1 px-8 font-title rounded-full"
+        class="py-1 px-8 font-title text-sm rounded-full"
       />
     </RouterLink>
 
     <div class="card col-span-5">
       <DataTable
-        :value="roleDetails"
+        :value="roles"
         tableStyle="width: 100%"
         stripedRows
         removableSort
@@ -38,18 +59,29 @@ const { data: roleDetails, error } = await useAsyncData(
           sortable
         ></Column>
 
-        <Column class="!text-center max-w-fit"
+        <Column class="!text-center w-10"
           ><template #body="{ data }">
             <RouterLink :to="`/edit-role/${data.role_id}`"
               ><Button
                 type="button"
                 label="Edit"
                 severity="primary"
-                class="py-1 px-8 font-title rounded-full"
+                class="py-1 px-8 font-title text-sm rounded-full"
               />
             </RouterLink>
           </template>
         </Column>
+
+        <Column class="!text-center w-10">
+          <template #body="{ data }">
+            <Button
+              type="button"
+              @click="deleteRole(data.role_id)"
+              label="Delete"
+              severity="primary"
+              class="py-1 px-8 font-title text-sm rounded-full bg-primary-950 border-primary-950"
+            /> </template
+        ></Column>
       </DataTable>
     </div>
   </div>

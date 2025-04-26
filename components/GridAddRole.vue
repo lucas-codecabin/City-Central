@@ -50,9 +50,9 @@ const addRole = async () => {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-5 p-8 gap-4">
+  <div class="grid grid-cols-1 md:grid-cols-5 p-8 gap-8">
     <h1 class="font-title text-xl uppercase font-bold col-span-5">
-      Add New Role:
+      Add New Role
     </h1>
 
     <div class="card col-span-5 space-y-8">
@@ -84,14 +84,14 @@ const addRole = async () => {
           severity="primary"
           label="Add Role"
           @click="addRole"
-          class="py-1 px-4 font-title rounded-full"
+          class="py-1 px-4 font-title text-sm rounded-full"
         />
         <RouterLink to="/roles"
           ><Button
             type="button"
             severity="primary"
             label="Cancel"
-            class="py-1 px-4 font-title rounded-full bg-white text-primary-950 border-primary-950 hover:!bg-primary-950 hover:!text-white hover:!border-primary-950"
+            class="py-1 px-4 font-title rounded-full text-sm bg-white text-primary-950 border-primary-950 hover:!bg-primary-950 hover:!text-white hover:!border-primary-950"
         /></RouterLink>
       </div>
     </div>
