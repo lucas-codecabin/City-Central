@@ -9,9 +9,6 @@ const email = ref("");
 const password = ref("");
 const selectedRoleId = ref("");
 
-// Fetch current session
-const { data: currentSession } = await supabase.auth.getSession();
-
 // Fetch all roles
 const { data: allRoles, error: allRolesError } = await useAsyncData(
   "all_roles",
@@ -26,7 +23,7 @@ const { data: allRoles, error: allRolesError } = await useAsyncData(
 const addUser = async () => {
   try {
     // Create auth user using SSR Supabase Auth Admin
-    const newUser = await $fetch("/api/users/create", {
+    const newAuthUserId = await $fetch("/api/users/create", {
       method: "POST",
       body: {
         email: email.value,
@@ -35,7 +32,7 @@ const addUser = async () => {
       },
     });
 
-    const newUserId = newUser?.id;
+    const newUserId = newAuthUserId;
     if (!newUserId) throw new Error("User ID not found after signup");
 
     // Create user on public users table
