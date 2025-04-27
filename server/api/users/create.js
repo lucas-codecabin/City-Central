@@ -19,27 +19,14 @@ export default defineEventHandler(async (event) => {
       email_confirm: true,
     });
 
-    console.log("DATA:", data);
-    console.log("ERROR:", error);
-
     if (error) {
       console.error("Supabase admin error", error);
-      throw createError({ statusCode: 400, statusMessage: error.message });
-    }
-
-    if (!data?.user?.id) {
-      throw createError({
-        statusCode: 500,
-        statusMessage: "User ID missing after signup",
-      });
+      throw createError(error.message);
     }
 
     return { id: data.user.id };
   } catch (error) {
     console.error("Failed to create user", error);
-    throw createError({
-      statusCode: 500,
-      statusMessage: "Server error: " + error.message,
-    });
+    throw createError(error.message);
   }
 });
