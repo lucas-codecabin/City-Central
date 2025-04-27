@@ -85,18 +85,17 @@ const updateRole = async () => {
 
     router.push("/roles");
   } catch (error) {
+    console.error("Failed to update role", error);
     alert("Failed to update role");
   }
 };
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-5 p-8 gap-8">
-    <h1 class="font-title text-xl uppercase font-bold col-span-5">
-      Update Role
-    </h1>
+  <div class="flex flex-col p-8 gap-8">
+    <h1 class="font-title text-xl uppercase font-bold">Update Role</h1>
 
-    <div class="card col-span-5 space-y-8">
+    <div class="card space-y-8">
       <div class="bg-white font-bold p-4 flex flex-col gap-2 pb-8">
         Role Title
         <InputText

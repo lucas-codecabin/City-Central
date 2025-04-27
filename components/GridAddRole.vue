@@ -17,7 +17,7 @@ const { data: allLocations, error: allLocationsError } = await useAsyncData(
   }
 );
 
-// Add role title and authorisation
+// Add role and authorisation
 const addRole = async () => {
   try {
     const { data: newRole, error: addRoleError } = await supabase
@@ -44,18 +44,16 @@ const addRole = async () => {
     router.push("/roles");
   } catch (error) {
     alert("Failed to add role");
-    console.error(error);
+    console.error("Failed to add role", error);
   }
 };
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-5 p-8 gap-8">
-    <h1 class="font-title text-xl uppercase font-bold col-span-5">
-      Add New Role
-    </h1>
+  <div class="flex flex-col p-8 gap-8">
+    <h1 class="font-title text-xl uppercase font-bold">Add New Role</h1>
 
-    <div class="card col-span-5 space-y-8">
+    <div class="card space-y-8">
       <div class="bg-white font-bold p-4 flex flex-col gap-2 pb-8">
         Role Title
         <InputText

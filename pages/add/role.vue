@@ -3,9 +3,9 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-import SidebarMenu from "../components/SidebarMenu.vue";
-import GridTopBar from "../components/GridTopBar.vue";
-import GridUsers from "~/components/GridUsers.vue";
+import SidebarMenu from "~/components/SidebarMenu.vue";
+import GridTopBar from "~/components/GridTopBar.vue";
+import GridAddRole from "~/components/GridAddRole.vue";
 </script>
 
 <template>
@@ -16,7 +16,7 @@ import GridUsers from "~/components/GridUsers.vue";
       class="bg-neutral-100 rounded-2xl my-8 mx-auto w-full md:max-w-[1440px] justify-center min-h-[calc(100dvh-60px)]"
     >
       <GridTopBar />
-      <GridUsers />
+      <GridAddRole />
     </div>
   </main>
 </template>

@@ -1,7 +1,11 @@
 <script setup>
+definePageMeta({
+  middleware: ["auth"],
+});
+
 import SidebarMenu from "~/components/SidebarMenu.vue";
 import GridTopBar from "~/components/GridTopBar.vue";
-import GridEditRole from "~/components/GridEditRole.vue";
+import GridAddUser from "~/components/GridAddUser.vue";
 </script>
 
 <template>
@@ -12,7 +16,7 @@ import GridEditRole from "~/components/GridEditRole.vue";
       class="bg-neutral-100 rounded-2xl my-8 mx-auto w-full md:max-w-[1440px] justify-center min-h-[calc(100dvh-60px)]"
     >
       <GridTopBar />
-      <GridEditRole />
+      <GridAddUser />
     </div>
   </main>
 </template>

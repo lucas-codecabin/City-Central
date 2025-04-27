@@ -50,11 +50,10 @@ const deleteRole = async (roleId) => {
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-5 p-8 gap-8">
+  <div class="flex flex-col p-8 gap-8">
     <RouterLink
       v-if="currentUserDetails.role_title === 'Codecabin'"
-      to="/add-role"
-      class="col-span-5"
+      to="/add/role"
     >
       <Button
         type="button"
@@ -64,7 +63,7 @@ const deleteRole = async (roleId) => {
       />
     </RouterLink>
 
-    <div class="card col-span-5">
+    <div class="card">
       <DataTable
         :value="roles"
         tableStyle="width: 100%"
@@ -85,7 +84,7 @@ const deleteRole = async (roleId) => {
           v-if="currentUserDetails.role_title === 'Codecabin'"
           class="!text-center w-10"
           ><template #body="{ data }">
-            <RouterLink :to="`/edit-role/${data.role_id}`"
+            <RouterLink :to="`/edit/role/${data.role_id}`"
               ><Button
                 type="button"
                 label="Edit"

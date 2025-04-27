@@ -1,4 +1,8 @@
 <script setup>
+definePageMeta({
+  middleware: ["auth"],
+});
+
 import SidebarMenu from "~/components/SidebarMenu.vue";
 import GridTopBar from "~/components/GridTopBar.vue";
 import GridDashboard from "~/components/GridDashboard.vue";
