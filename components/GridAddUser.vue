@@ -32,6 +32,8 @@ const addUser = async () => {
       },
     });
 
+    console.log(newAuthUserId);
+
     const newUserId = newAuthUserId;
     if (!newUserId) throw new Error("User ID not found after signup");
 
