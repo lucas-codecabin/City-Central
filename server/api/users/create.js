@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
       console.error("Supabase admin error", error);
     }
 
-    return data.user.id;
+    return { id: data.user.id };
   } catch (error) {
     console.error("Failed to create user", error);
   }
