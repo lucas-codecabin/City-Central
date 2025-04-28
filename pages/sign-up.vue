@@ -162,7 +162,7 @@ const signUp = async ({ values, valid }) => {
               }}</Message>
             </div>
 
-            <Button type="submit" severity="primary" label="Sign Up" />
+            <Button type="submit" severity="normal" label="Sign Up" />
           </Form>
 
           <p class="pt-4 text-sm">
@@ -176,3 +176,26 @@ const signUp = async ({ values, valid }) => {
     </section>
   </main>
 </template>
+
+<style scoped>
+:root {
+  .p-button {
+    background: #40b9bf;
+    font-size: 14px;
+    border-radius: 100px;
+  }
+
+  .p-button:hover {
+    background: #80b4bd;
+  }
+
+  .p-message {
+    background: transparent;
+    outline: none;
+    color: red;
+    padding: 0;
+    margin: 0;
+    font-size: 12px;
+  }
+}
+</style>
