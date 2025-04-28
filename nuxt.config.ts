@@ -48,13 +48,6 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  components: [
-    {
-      path: "/components/SidebarMenu",
-      pathPrefix: false,
-    },
-  ],
-
   modules: ["@nuxtjs/tailwindcss", "@primevue/nuxt-module", "@nuxtjs/supabase"],
 
   primevue: {
@@ -68,6 +61,11 @@ export default defineNuxtConfig({
     },
   },
 
+  css: [
+    "primeicons/primeicons.css",
+    "@/assets/css/custom-primevue-styling.css",
+  ],
+
   supabase: {
     redirect: false,
     serviceKey: process.env.SUPABASE_SERVICE_KEY,
@@ -77,7 +75,9 @@ export default defineNuxtConfig({
     exposeConfig: true,
     config: [
       { content: ["content/**/**.md"] },
-      { plugins: [require("tailwindcss-primeui")] },
+      {
+        plugins: [require("tailwindcss-primeui")],
+      },
       {
         theme: {
           extend: {

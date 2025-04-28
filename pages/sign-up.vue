@@ -123,7 +123,6 @@ const signUp = async ({ values, valid }) => {
                 name="fName"
                 type="text"
                 placeholder="Enter your first name"
-                class="px-4 py-2 text-neutral-500 bg-white rounded-lg"
               />
               <Message v-if="$form.fName?.invalid">{{
                 $form.fName.error?.message
@@ -135,7 +134,6 @@ const signUp = async ({ values, valid }) => {
                 name="email"
                 type="email"
                 placeholder="Enter your email"
-                class="px-4 py-2 text-neutral-500 bg-white rounded-lg"
               />
               <Message v-if="$form.email?.invalid">{{
                 $form.email.error?.message
@@ -147,7 +145,6 @@ const signUp = async ({ values, valid }) => {
                 name="password"
                 type="password"
                 placeholder="Enter your password"
-                class="px-4 py-2 text-neutral-500 bg-white rounded-lg"
               />
               <Message v-if="$form.password?.invalid">{{
                 $form.password.error?.message
@@ -159,19 +156,13 @@ const signUp = async ({ values, valid }) => {
                 name="confirmPassword"
                 type="password"
                 placeholder="Confirm your password"
-                class="px-4 py-2 text-neutral-500 bg-white rounded-lg"
               />
               <Message v-if="$form.confirmPassword?.invalid">{{
                 $form.confirmPassword.error?.message
               }}</Message>
             </div>
 
-            <Button
-              type="submit"
-              severity="primary"
-              label="Sign Up"
-              class="font-title text-sm uppercase rounded-full"
-            />
+            <Button type="submit" severity="primary" label="Sign Up" />
           </Form>
 
           <p class="pt-4 text-sm">

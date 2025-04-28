@@ -1,0 +1,28 @@
+:root {
+  --p-inputtext-hover-border-color: #40b9bf;
+}
+
+.p-message {
+  margin: 0;
+  padding: 0;
+  background-color: transparent;
+  outline: none;
+}
+
+.p-message-content {
+  margin: 0;
+  padding: 0;
+}
+
+.p-message-text {
+  font-size: 12px;
+  margin-left: 14px;
+  color: oklch(57.7% 0.245 27.325);
+}
+
+.p-button {
+  font-size: 14px;
+  text-transform: uppercase;
+  border-radius: 100px;
+  font-weight: bold;
+}

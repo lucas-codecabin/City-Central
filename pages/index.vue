@@ -2,8 +2,6 @@
 import { Form } from "@primevue/forms";
 import { reactive } from "vue";
 import { RouterLink, useRouter } from "vue-router";
-import { useToast } from "primevue/usetoast";
-import { FloatLabel } from "primevue";
 
 const router = useRouter();
 const supabase = useSupabaseClient();
@@ -98,13 +96,10 @@ const signIn = async ({ values, valid }) => {
                 name="email"
                 type="email"
                 placeholder="Enter your email"
-                class="px-4 py-2 text-neutral-500 bg-white rounded-lg"
               />
-              <Message
-                v-if="$form.email?.invalid"
-                class="text-left ml-4 text-sm text-red-500"
-                >{{ $form.email.error?.message }}</Message
-              >
+              <Message v-if="$form.email?.invalid">{{
+                $form.email.error?.message
+              }}</Message>
             </div>
 
             <div class="flex flex-col">
@@ -112,21 +107,13 @@ const signIn = async ({ values, valid }) => {
                 name="password"
                 type="password"
                 placeholder="Enter your password"
-                class="px-4 py-2 text-neutral-500 bg-white rounded-lg"
               />
-              <Message
-                v-if="$form.password?.invalid"
-                class="text-left ml-4 text-sm text-red-500"
-                >{{ $form.password.error?.message }}</Message
-              >
+              <Message v-if="$form.password?.invalid">{{
+                $form.password.error?.message
+              }}</Message>
             </div>
 
-            <Button
-              type="submit"
-              severity="primary"
-              label="Sign In"
-              class="font-title text-sm uppercase font-bold rounded-full"
-            />
+            <Button type="submit" severity="primary" label="Sign In" />
           </Form>
 
           <RouterLink
