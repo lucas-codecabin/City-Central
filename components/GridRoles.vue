@@ -54,6 +54,7 @@ const deleteRole = async (roleId) => {
     <RouterLink
       v-if="currentUserDetails.role_title === 'Codecabin'"
       to="/add/role"
+      class="w-fit"
     >
       <Button
         type="button"
