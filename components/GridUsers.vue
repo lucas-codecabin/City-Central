@@ -73,7 +73,7 @@ const deleteUser = async (userId) => {
         type="button"
         label="Add User"
         severity="primary"
-        class="py-1 px-8 font-title text-sm rounded-full"
+        class="hover:!bg-primary-300"
       />
     </RouterLink>
 
@@ -99,7 +99,7 @@ const deleteUser = async (userId) => {
                 type="button"
                 label="Edit"
                 severity="primary"
-                class="py-1 px-8 font-title text-sm rounded-full"
+                class="hover:!bg-primary-300"
               />
             </RouterLink>
           </template>
@@ -115,10 +115,21 @@ const deleteUser = async (userId) => {
               @click="deleteUser(data.user_id)"
               label="Delete"
               severity="primary"
-              class="py-1 px-8 font-title text-sm rounded-full bg-primary-950 border-primary-950"
+              class="!bg-primary-950 !border-primary-950 hover:!bg-white hover:!border-primary-950 hover:!text-primary-950"
             /> </template
         ></Column>
       </DataTable>
     </div>
   </div>
 </template>
+
+<style scoped>
+:root {
+  .p-button {
+    background: #40b9bf;
+    font-size: 14px;
+    border-radius: 100px;
+    padding: 4px 32px;
+  }
+}
+</style>

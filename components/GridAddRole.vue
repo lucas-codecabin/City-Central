@@ -82,16 +82,27 @@ const addRole = async () => {
           severity="primary"
           label="Add Role"
           @click="addRole"
-          class="py-1 px-4 font-title text-sm rounded-full"
+          class="hover:!bg-primary-300"
         />
         <RouterLink to="/roles"
           ><Button
             type="button"
             severity="primary"
             label="Cancel"
-            class="py-1 px-4 font-title rounded-full text-sm bg-white text-primary-950 border-primary-950 hover:!bg-primary-950 hover:!text-white hover:!border-primary-950"
+            class="!bg-white !text-primary-950 !border-primary-950 hover:!bg-primary-950 hover:!text-white hover:!border-primary-950"
         /></RouterLink>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped>
+:root {
+  .p-button {
+    background: #40b9bf;
+    font-size: 14px;
+    border-radius: 100px;
+    padding: 4px 32px;
+  }
+}
+</style>

@@ -91,29 +91,24 @@ const signIn = async ({ values, valid }) => {
             @submit="signIn"
             class="flex flex-col gap-4 w-full lg:w-80 mx-auto"
           >
-            <div class="flex flex-col">
-              <InputText
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-              />
-              <Message v-if="$form.email?.invalid">{{
-                $form.email.error?.message
-              }}</Message>
-            </div>
+            <InputText
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+            />
 
-            <div class="flex flex-col">
-              <InputText
-                name="password"
-                type="password"
-                placeholder="Enter your password"
-              />
-              <Message v-if="$form.password?.invalid">{{
-                $form.password.error?.message
-              }}</Message>
-            </div>
+            <InputText
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+            />
 
-            <Button type="submit" severity="primary" label="Sign In" />
+            <Button
+              type="submit"
+              severity="primary"
+              label="Sign In"
+              class="hover:!bg-primary-300"
+            />
           </Form>
 
           <RouterLink
@@ -143,19 +138,6 @@ const signIn = async ({ values, valid }) => {
     font-size: 14px;
     text-transform: uppercase;
     border-radius: 100px;
-  }
-
-  .p-button:hover {
-    background: #80b4bd;
-  }
-
-  .p-message {
-    background: transparent;
-    outline: none;
-    color: red;
-    padding: 0;
-    margin: 0;
-    font-size: 12px;
   }
 }
 </style>

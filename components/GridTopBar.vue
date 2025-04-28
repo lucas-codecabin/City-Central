@@ -48,7 +48,7 @@ const signOut = async () => {
 :root {
   .p-button {
     background: #40b9bf;
-    font-size: 14px;
+    font-size: 12px;
     text-transform: uppercase;
     border-radius: 8px;
     padding: 4px 12px;

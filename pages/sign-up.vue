@@ -92,7 +92,7 @@ const signUp = async ({ values, valid }) => {
     >
       <Toast />
       <div class="container flex flex-col items-center">
-        <div class="w-[80%] 2xl:w-[70%] space-y-5">
+        <div class="w-[80%] 2xl:w-[70%] space-y-8">
           <h1 class="text-4xl font-bold text-center font-title uppercase">
             Welcome to city central
           </h1>
@@ -106,7 +106,7 @@ const signUp = async ({ values, valid }) => {
         </div>
 
         <div
-          class="p-8 rounded-2xl bg-neutral-100 text-primary-950 w-[70%] 2xl:w-[50%] mt-8 text-center space-y-2"
+          class="p-8 rounded-2xl bg-neutral-100 text-primary-950 w-[70%] 2xl:w-[50%] mt-10 text-center space-y-2"
         >
           <h2 class="text-2xl uppercase font-title font-bold">Get Started</h2>
           <p>Enter your details to sign up</p>
@@ -118,51 +118,36 @@ const signUp = async ({ values, valid }) => {
             @submit="signUp"
             class="flex flex-col gap-4 w-full lg:w-80 mx-auto"
           >
-            <div class="flex flex-col">
-              <InputText
-                name="fName"
-                type="text"
-                placeholder="Enter your first name"
-              />
-              <Message v-if="$form.fName?.invalid">{{
-                $form.fName.error?.message
-              }}</Message>
-            </div>
+            <InputText
+              name="fName"
+              type="text"
+              placeholder="Enter your first name"
+            />
 
-            <div class="flex flex-col">
-              <InputText
-                name="email"
-                type="email"
-                placeholder="Enter your email"
-              />
-              <Message v-if="$form.email?.invalid">{{
-                $form.email.error?.message
-              }}</Message>
-            </div>
+            <InputText
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+            />
 
-            <div class="flex flex-col">
-              <InputText
-                name="password"
-                type="password"
-                placeholder="Enter your password"
-              />
-              <Message v-if="$form.password?.invalid">{{
-                $form.password.error?.message
-              }}</Message>
-            </div>
+            <InputText
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+            />
 
-            <div class="flex flex-col">
-              <InputText
-                name="confirmPassword"
-                type="password"
-                placeholder="Confirm your password"
-              />
-              <Message v-if="$form.confirmPassword?.invalid">{{
-                $form.confirmPassword.error?.message
-              }}</Message>
-            </div>
+            <InputText
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm your password"
+            />
 
-            <Button type="submit" severity="normal" label="Sign Up" />
+            <Button
+              type="submit"
+              severity="normal"
+              label="Sign Up"
+              class="hover:!bg-primary-300"
+            />
           </Form>
 
           <p class="pt-4 text-sm">
@@ -184,19 +169,6 @@ const signUp = async ({ values, valid }) => {
     font-size: 14px;
     text-transform: uppercase;
     border-radius: 100px;
-  }
-
-  .p-button:hover {
-    background: #80b4bd;
-  }
-
-  .p-message {
-    background: transparent;
-    outline: none;
-    color: red;
-    padding: 0;
-    margin: 0;
-    font-size: 12px;
   }
 }
 </style>
