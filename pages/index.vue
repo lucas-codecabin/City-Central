@@ -138,8 +138,15 @@ const signIn = async ({ values, valid }) => {
   </main>
 </template>
 
-<style>
-.p-button {
-  background: #23333b;
+<style scoped>
+:root {
+  .p-button {
+    background: #40b9bf;
+    font-size: 14px;
+    border-radius: 100px;
+  }
+  .p-button:hover {
+    background: #80b4bd;
+  }
 }
 </style>
