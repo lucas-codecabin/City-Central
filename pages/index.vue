@@ -97,9 +97,11 @@ const signIn = async ({ values, valid }) => {
                 type="email"
                 placeholder="Enter your email"
               />
-              <Message v-if="$form.email?.invalid">{{
-                $form.email.error?.message
-              }}</Message>
+              <Message
+                v-if="$form.email?.invalid"
+                class="bg-transparent text-xs p-0 m-0 text-red-600 !outline-none"
+                >{{ $form.email.error?.message }}</Message
+              >
             </div>
 
             <div class="flex flex-col">
@@ -135,3 +137,9 @@ const signIn = async ({ values, valid }) => {
     </section>
   </main>
 </template>
+
+<style>
+.p-button {
+  background: #23333b;
+}
+</style>

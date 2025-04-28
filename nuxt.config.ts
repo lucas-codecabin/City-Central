@@ -26,17 +26,17 @@ const Noir = definePreset(Aura, {
 
         surface: {
           0: "#ffffff",
-          50: "{neutral.50}",
-          100: "{neutral.100}",
-          200: "{neutral.200}",
-          300: "{neutral.300}",
-          400: "{neutral.400}",
-          500: "{neutral.500}",
-          600: "{neutral.600}",
-          700: "{neutral.700}",
-          800: "{neutral.800}",
-          900: "{neutral.900}",
-          950: "{neutral.950}",
+          50: "#f9fafb",
+          100: "#f3f4f6",
+          200: "#e5e7eb",
+          300: "#d1d5db",
+          400: "#9ca3af",
+          500: "#6b7280",
+          600: "#4b5563",
+          700: "#374151",
+          800: "#1f2937",
+          900: "#111827",
+          950: "#0f172a",
         },
       },
     },
@@ -61,10 +61,7 @@ export default defineNuxtConfig({
     },
   },
 
-  css: [
-    "primeicons/primeicons.css",
-    "@/assets/css/custom-primevue-styling.css",
-  ],
+  css: ["primeicons/primeicons.css"],
 
   supabase: {
     redirect: false,
@@ -73,37 +70,32 @@ export default defineNuxtConfig({
 
   tailwindcss: {
     exposeConfig: true,
-    config: [
-      { content: ["content/**/**.md"] },
-      {
-        plugins: [require("tailwindcss-primeui")],
-      },
-      {
-        theme: {
-          extend: {
-            colors: {
-              primary: {
-                0: "#ffffff",
-                50: "#f2f8f9",
-                100: "#dfecee",
-                200: "#c2dbdf",
-                300: "#80B4BD",
-                400: "#679da9",
-                500: "#40B9BF",
-                600: "#426b78",
-                700: "#3a5964",
-                900: "#304149",
-                950: "#23333B",
-              },
+    config: {
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              0: "#ffffff",
+              50: "#f2f8f9",
+              100: "#dfecee",
+              200: "#c2dbdf",
+              300: "#80B4BD",
+              400: "#679da9",
+              500: "#40B9BF",
+              600: "#426b78",
+              700: "#3a5964",
+              800: "#354b55",
+              900: "#304149",
+              950: "#23333B",
             },
           },
-
           fontFamily: {
             sans: ["Roboto", "sans-serif"],
             title: ["Trade Gothic", "sans-serif"],
           },
         },
       },
-    ],
+      plugins: [require("tailwindcss-primeui")],
+    },
   },
 });
