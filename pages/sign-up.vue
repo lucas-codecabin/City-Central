@@ -182,6 +182,7 @@ const signUp = async ({ values, valid }) => {
   .p-button {
     background: #40b9bf;
     font-size: 14px;
+    text-transform: uppercase;
     border-radius: 100px;
   }
 

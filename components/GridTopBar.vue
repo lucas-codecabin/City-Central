@@ -38,8 +38,20 @@ const signOut = async () => {
         severity="primary"
         label="Sign Out"
         @click="signOut"
-        class="py-1 px-3 font-title rounded-lg text-sm"
+        class="hover:!bg-primary-300"
       />
     </div>
   </div>
 </template>
+
+<style scoped>
+:root {
+  .p-button {
+    background: #40b9bf;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    padding: 4px 12px;
+  }
+}
+</style>
