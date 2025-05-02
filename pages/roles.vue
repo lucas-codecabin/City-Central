@@ -3,9 +3,9 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-import SidebarMenu from "../../components/SidebarMenu.vue";
-import GridTopBar from "../../components/GridTopBar.vue";
-import GridRoles from "../../components/GridRoles.vue";
+import SidebarMenu from "~/components/SidebarMenu.vue";
+import GridTopBar from "~/components/GridTopBar.vue";
+import GridRoles from "~/components/GridRoles.vue";
 </script>
 
 <template>

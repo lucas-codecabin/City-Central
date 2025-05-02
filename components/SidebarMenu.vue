@@ -99,7 +99,9 @@ const currentPath = computed(() => route.path);
             "
             :class="`${
               cityAquaticsExpanded ? 'bg-transparent rounded-b-none' : ''
-            } flex w-full justify-between p-2 items-center rounded-lg bg-primary-950 border-none hover:bg-primary-300 hover:drop-shadow-md cursor-pointer`"
+            } ${
+              currentPath === '/website-controller' && 'bg-primary-500'
+            } flex w-full justify-between p-2 items-center rounded-lg border-none hover:bg-primary-300 hover:drop-shadow-md cursor-pointer`"
           >
             <div class="flex gap-2 items-center">
               <i class="pi pi-globe"></i>
@@ -113,8 +115,10 @@ const currentPath = computed(() => route.path);
               flex flex-col text-sm items-center`"
           >
             <RouterLink
-              to="#"
-              class="flex w-full justify-between p-2 pl-8 items-center hover:bg-primary-300 hover:drop-shadow-md"
+              to="/website-controller"
+              :class="`${
+                currentPath === '/website-controller' && 'bg-primary-500'
+              } flex w-full justify-between p-2 pl-8 items-center hover:bg-primary-300 hover:drop-shadow-md`"
             >
               <p>Websites Controller</p>
               <i class="pi pi-angle-right"></i>

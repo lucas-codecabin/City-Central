@@ -1,6 +1,4 @@
 <script setup>
-import { Button } from "primevue";
-
 const supabase = useSupabaseClient();
 const router = useRouter();
 
