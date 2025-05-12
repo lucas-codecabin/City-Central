@@ -101,6 +101,24 @@ const updateService = async () => {
       if (createServiceError) throw createServiceError;
     }
 
+    await fetch("https://hook.eu2.make.com/1m2odhfrpi1mnuddx21tbovdfkei7ptg", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        service_location_id: serviceLocationId,
+        location_name: serviceLocationDetails.value?.locations?.name,
+        service_name: serviceLocationDetails.value?.services?.name,
+        page_title: page_title.value,
+        phone: phone.value,
+        email: email.value,
+        seo_title: seo_title.value,
+        seo_description: seo_description.value,
+        page_content: page_content.value,
+      }),
+    });
+
     router.push(
       `/services/location/${serviceLocationDetails.value.location_id}`
     );

@@ -128,24 +128,56 @@ const updateLocation = async () => {
 
     if (locationUpdateError) throw locationUpdateError;
 
-    const { error: deleteServicesError } = await supabase
-      .from("services_by_location")
-      .delete()
-      .eq("location_id", locationId);
+    // Compare selected services vs previously enabled
+    const selectedIds = selectedServices.value.map((s) => s.id);
+    const previouslyEnabledIds = enabledServicesList.value.map(
+      (s) => s.service_id
+    );
 
-    if (deleteServicesError) throw deleteServicesError;
+    const toAdd = selectedIds.filter(
+      (id) => !previouslyEnabledIds.includes(id)
+    );
+    const toRemove = previouslyEnabledIds.filter(
+      (id) => !selectedIds.includes(id)
+    );
 
-    if (selectedServices.value.length > 0) {
-      const servicesToInsert = selectedServices.value.map((service) => ({
+    // Add new services
+    if (toAdd.length > 0) {
+      const insertData = toAdd.map((id) => ({
         location_id: locationId,
-        service_id: service.id,
+        service_id: id,
       }));
-
-      const { error: insertServicesError } = await supabase
+      const { error: insertError } = await supabase
         .from("services_by_location")
-        .insert(servicesToInsert);
+        .insert(insertData);
+      if (insertError) throw insertError;
+    }
 
-      if (insertServicesError) throw insertServicesError;
+    // Remove deselected services (after cleaning up service_details)
+    if (toRemove.length > 0) {
+      // Get the service_by_location IDs to delete service_details
+      const { data: linkRows, error: linkError } = await supabase
+        .from("services_by_location")
+        .select("id")
+        .eq("location_id", locationId)
+        .in("service_id", toRemove);
+
+      if (linkError) throw linkError;
+
+      const linkIds = linkRows.map((row) => row.id);
+
+      await supabase
+        .from("service_details")
+        .delete()
+        .in("service_location_id", linkIds);
+
+      const { error: deleteError } = await supabase
+        .from("services_by_location")
+        .delete()
+        .eq("location_id", locationId)
+        .in("service_id", toRemove);
+
+      if (deleteError) throw deleteError;
     }
 
     router.push("/website-controller");
