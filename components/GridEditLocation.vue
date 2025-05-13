@@ -357,11 +357,13 @@ const updateLocation = async () => {
           </DataTable>
         </div>
 
-        <div class="bg-white p-4 flex flex-col gap-2 col-span-4">
+        <div class="bg-white font-bold p-4 flex flex-col gap-2 col-span-4">
+          Operating Hours
           <DataTable
             :value="operating_hours"
             tableStyle="width: 100%"
             editMode="row"
+            class="!font-normal"
           >
             <Column field="Day" header="Day">
               <template #body="{ data, index }">
@@ -394,7 +396,6 @@ const updateLocation = async () => {
               <template #body="{ index }">
                 <Button
                   icon="pi pi-trash"
-                  severity="danger"
                   @click="removeOperatingHour(index)"
                   class="!bg-primary-950 !border-primary-950 hover:!bg-white hover:!border-primary-950 hover:!text-primary-950"
                 />
@@ -404,17 +405,18 @@ const updateLocation = async () => {
 
           <Button
             label="Add Row"
-            icon="pi pi-plus"
             class="hover:!bg-primary-300 !w-fit"
             @click="addOperatingHour"
           />
         </div>
 
-        <div class="bg-white p-4 flex flex-col gap-2 col-span-4">
+        <div class="bg-white font-bold p-4 flex flex-col gap-2 col-span-4">
+          Entry Fees
           <DataTable
             :value="entry_fees"
             tableStyle="width: 100%"
             editMode="row"
+            class="!font-normal"
           >
             <Column field="Category" header="Category">
               <template #body="{ data, index }">
@@ -435,7 +437,6 @@ const updateLocation = async () => {
               <template #body="{ index }">
                 <Button
                   icon="pi pi-trash"
-                  severity="danger"
                   @click="removeEntryFee(index)"
                   class="!bg-primary-950 !border-primary-950 hover:!bg-white hover:!border-primary-950 hover:!text-primary-950"
                 />
@@ -445,7 +446,6 @@ const updateLocation = async () => {
 
           <Button
             label="Add Row"
-            icon="pi pi-plus"
             class="hover:!bg-primary-300 !w-fit"
             @click="addEntryFee"
           />
