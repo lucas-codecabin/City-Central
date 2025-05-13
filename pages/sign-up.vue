@@ -1,9 +1,10 @@
 <script setup>
 import { Form } from "@primevue/forms";
-import { Toast } from "primevue";
 import { reactive } from "vue";
 import { RouterLink, useRouter } from "vue-router";
+import { useToast } from "primevue/usetoast";
 
+const toast = useToast();
 const supabase = useSupabaseClient();
 const router = useRouter();
 
@@ -68,9 +69,18 @@ const signUp = async ({ values, valid }) => {
         }
       } catch {
         console.error("Failed to sign up user");
+        toast.add({
+          severity: "error",
+          summary: "Failed to sign up user",
+          life: 3000,
+        });
       }
     } else {
-      alert("Passwords do not match");
+      toast.add({
+        severity: "error",
+        summary: "Passwords do not match",
+        life: 3000,
+      });
     }
   }
 };
@@ -90,7 +100,6 @@ const signUp = async ({ values, valid }) => {
     <section
       class="container flex flex-col w-[50dvw] justify-center bg-neutral-200 text-primary-950 py-8"
     >
-      <Toast />
       <div class="container flex flex-col items-center">
         <div class="w-[80%] 2xl:w-[70%] space-y-8">
           <h1 class="text-4xl font-bold text-center font-title uppercase">
@@ -159,6 +168,7 @@ const signUp = async ({ values, valid }) => {
         </div>
       </div>
     </section>
+    <Toast />
   </main>
 </template>
 

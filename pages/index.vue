@@ -2,7 +2,9 @@
 import { Form } from "@primevue/forms";
 import { reactive } from "vue";
 import { RouterLink, useRouter } from "vue-router";
+import { useToast } from "primevue/usetoast";
 
+const toast = useToast();
 const router = useRouter();
 const supabase = useSupabaseClient();
 
@@ -39,10 +41,19 @@ const signIn = async ({ values, valid }) => {
         router.push("/dashboard");
         console.log("User signed in successfully");
       } else {
-        alert(error.message);
+        toast.add({
+          severity: "error",
+          summary: error.message,
+          life: 3000,
+        });
       }
     } catch (error) {
       console.error("Failed to sign in", error);
+      toast.add({
+        severity: "error",
+        summary: error,
+        life: 3000,
+      });
     }
   }
 };
@@ -128,6 +139,7 @@ const signIn = async ({ values, valid }) => {
         </div>
       </div>
     </section>
+    <Toast />
   </main>
 </template>
 
