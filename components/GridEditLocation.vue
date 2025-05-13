@@ -23,9 +23,23 @@ const council_website = ref("");
 const seo_title = ref("");
 const seo_description = ref("");
 const site_description = ref("");
-const services_enabled = ref("");
+const entry_fees = ref("");
 const operating_hours = ref("");
 const social_links = ref("");
+
+const addOperatingHour = () => {
+  operating_hours.value.push({ Day: "", Open: "", Close: "" });
+};
+const removeOperatingHour = (index) => {
+  operating_hours.value.splice(index, 1);
+};
+
+const addEntryFee = () => {
+  entry_fees.value.push({ Category: "", Price: "" });
+};
+const removeEntryFee = (index) => {
+  entry_fees.value.splice(index, 1);
+};
 
 // Get current user data
 const { data: currentUser, error: currentUserError } =
@@ -101,7 +115,7 @@ watchEffect(() => {
     seo_title.value = locationDetails.value.seo_title;
     seo_description.value = locationDetails.value.seo_description;
     site_description.value = locationDetails.value.site_description;
-    services_enabled.value = locationDetails.value.services_enabled;
+    entry_fees.value = locationDetails.value.entry_fees;
     operating_hours.value = locationDetails.value.operating_hours;
     social_links.value = locationDetails.value.social_links;
   }
@@ -126,6 +140,8 @@ const updateLocation = async () => {
         seo_title: seo_title.value,
         seo_description: seo_description.value,
         site_description: site_description.value,
+        entry_fees: entry_fees.value,
+        operating_hours: operating_hours.value,
       })
       .eq("id", locationId);
 
@@ -339,6 +355,100 @@ const updateLocation = async () => {
               header="Services available at this location"
             ></Column>
           </DataTable>
+        </div>
+
+        <div class="bg-white p-4 flex flex-col gap-2 col-span-4">
+          <DataTable
+            :value="operating_hours"
+            tableStyle="width: 100%"
+            editMode="row"
+          >
+            <Column field="Day" header="Day">
+              <template #body="{ data, index }">
+                <InputText
+                  v-model="operating_hours[index].Day"
+                  class="w-full"
+                />
+              </template>
+            </Column>
+
+            <Column field="Open" header="Open">
+              <template #body="{ data, index }">
+                <InputText
+                  v-model="operating_hours[index].Open"
+                  class="w-full"
+                />
+              </template>
+            </Column>
+
+            <Column field="Close" header="Close">
+              <template #body="{ data, index }">
+                <InputText
+                  v-model="operating_hours[index].Close"
+                  class="w-full"
+                />
+              </template>
+            </Column>
+
+            <Column header="Remove" style="width: 6rem">
+              <template #body="{ index }">
+                <Button
+                  icon="pi pi-trash"
+                  severity="danger"
+                  @click="removeOperatingHour(index)"
+                  class="!bg-primary-950 !border-primary-950 hover:!bg-white hover:!border-primary-950 hover:!text-primary-950"
+                />
+              </template>
+            </Column>
+          </DataTable>
+
+          <Button
+            label="Add Row"
+            icon="pi pi-plus"
+            class="hover:!bg-primary-300 !w-fit"
+            @click="addOperatingHour"
+          />
+        </div>
+
+        <div class="bg-white p-4 flex flex-col gap-2 col-span-4">
+          <DataTable
+            :value="entry_fees"
+            tableStyle="width: 100%"
+            editMode="row"
+          >
+            <Column field="Category" header="Category">
+              <template #body="{ data, index }">
+                <InputText
+                  v-model="entry_fees[index].Category"
+                  class="w-full"
+                />
+              </template>
+            </Column>
+
+            <Column field="Price" header="Price">
+              <template #body="{ data, index }">
+                <InputText v-model="entry_fees[index].Price" class="w-full" />
+              </template>
+            </Column>
+
+            <Column header="Remove" style="width: 6rem">
+              <template #body="{ index }">
+                <Button
+                  icon="pi pi-trash"
+                  severity="danger"
+                  @click="removeEntryFee(index)"
+                  class="!bg-primary-950 !border-primary-950 hover:!bg-white hover:!border-primary-950 hover:!text-primary-950"
+                />
+              </template>
+            </Column>
+          </DataTable>
+
+          <Button
+            label="Add Row"
+            icon="pi pi-plus"
+            class="hover:!bg-primary-300 !w-fit"
+            @click="addEntryFee"
+          />
         </div>
       </div>
 
