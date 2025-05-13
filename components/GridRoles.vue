@@ -1,4 +1,7 @@
 <script setup>
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
 const supabase = useSupabaseClient();
 
 const roles = ref([]);
@@ -43,8 +46,12 @@ const deleteRole = async (roleId) => {
   if (!error) {
     await fetchRoles();
   } else {
+    toast.add({
+      severity: "error",
+      summary: "Failed to delete role",
+      life: 3000,
+    });
     console.error("Failed to delete role", error);
-    alert("Failed to delete role");
   }
 };
 </script>
@@ -112,6 +119,7 @@ const deleteRole = async (roleId) => {
       </DataTable>
     </div>
   </div>
+  <Toast />
 </template>
 
 <style scoped>

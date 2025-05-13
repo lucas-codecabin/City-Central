@@ -1,4 +1,7 @@
 <script setup>
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
 const supabase = useSupabaseClient();
 
 const users = ref([]);
@@ -57,8 +60,12 @@ const deleteUser = async (userId) => {
   if (!deleteError) {
     await fetchUsers();
   } else {
+    toast.add({
+      severity: "error",
+      summary: "Failed to delete user",
+      life: 3000,
+    });
     console.error("Failed to delete user", error);
-    alert("Failed to delete user");
   }
 };
 </script>
@@ -122,6 +129,7 @@ const deleteUser = async (userId) => {
       </DataTable>
     </div>
   </div>
+  <Toast />
 </template>
 
 <style scoped>

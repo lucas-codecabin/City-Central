@@ -1,6 +1,8 @@
 <script setup>
 import { Button } from "primevue";
+import { useToast } from "primevue/usetoast";
 
+const toast = useToast();
 const supabase = useSupabaseClient();
 const route = useRoute();
 const router = useRouter();
@@ -85,8 +87,12 @@ const updateRole = async () => {
 
     router.push("/roles");
   } catch (error) {
+    toast.add({
+      severity: "error",
+      summary: "Failed to update role",
+      life: 3000,
+    });
     console.error("Failed to update role", error);
-    alert("Failed to update role");
   }
 };
 </script>
@@ -136,6 +142,7 @@ const updateRole = async () => {
       </div>
     </div>
   </div>
+  <Toast />
 </template>
 
 <style scoped>

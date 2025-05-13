@@ -1,6 +1,8 @@
 <script setup>
 import { Button } from "primevue";
+import { useToast } from "primevue/usetoast";
 
+const toast = useToast();
 const supabase = useSupabaseClient();
 const router = useRouter();
 
@@ -43,7 +45,11 @@ const addRole = async () => {
 
     router.push("/roles");
   } catch (error) {
-    alert("Failed to add role");
+    toast.add({
+      severity: "error",
+      summary: "Failed to add role",
+      life: 3000,
+    });
     console.error("Failed to add role", error);
   }
 };
@@ -94,6 +100,7 @@ const addRole = async () => {
       </div>
     </div>
   </div>
+  <Toast />
 </template>
 
 <style scoped>

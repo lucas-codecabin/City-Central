@@ -1,4 +1,7 @@
 <script setup>
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
 const supabase = useSupabaseClient();
 const route = useRoute();
 const router = useRouter();
@@ -182,8 +185,12 @@ const updateLocation = async () => {
 
     router.push("/website-controller");
   } catch (error) {
+    toast.add({
+      severity: "error",
+      summary: "Failed to update location",
+      life: 3000,
+    });
     console.error("Failed to update location", error);
-    alert("Failed to update location");
   }
 };
 </script>
@@ -353,6 +360,7 @@ const updateLocation = async () => {
       </div>
     </div>
   </div>
+  <Toast />
 </template>
 
 <style scoped>

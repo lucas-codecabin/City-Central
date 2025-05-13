@@ -1,4 +1,7 @@
 <script setup>
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
 const supabase = useSupabaseClient();
 const route = useRoute();
 const router = useRouter();
@@ -123,8 +126,12 @@ const updateService = async () => {
       `/services/location/${serviceLocationDetails.value.location_id}`
     );
   } catch (error) {
+    toast.add({
+      severity: "error",
+      summary: "Failed to update or create service",
+      life: 3000,
+    });
     console.error("Failed to update or create service", error);
-    alert("Failed to update or create service");
   }
 };
 </script>
@@ -223,6 +230,7 @@ const updateService = async () => {
       </div>
     </div>
   </div>
+  <Toast />
 </template>
 
 <style scoped>

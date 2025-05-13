@@ -1,4 +1,7 @@
 <script setup>
+import { useToast } from "primevue/usetoast";
+
+const toast = useToast();
 const supabase = useSupabaseClient();
 const router = useRouter();
 
@@ -45,7 +48,11 @@ const addUser = async () => {
 
     router.push("/users");
   } catch (error) {
-    alert("Failed to add user");
+    toast.add({
+      severity: "error",
+      summary: "Failed to add user",
+      life: 3000,
+    });
     console.error("Failed to add user", error);
   }
 };
@@ -118,6 +125,7 @@ const addUser = async () => {
       </div>
     </div>
   </div>
+  <Toast />
 </template>
 
 <style scoped>
