@@ -36,6 +36,7 @@ const signOut = async () => {
       <Button
         type="button"
         severity="primary"
+        rounded
         label="Sign Out"
         @click="signOut"
         class="hover:!bg-primary-300"
@@ -50,7 +51,6 @@ const signOut = async () => {
     background: #40b9bf;
     font-size: 12px;
     text-transform: uppercase;
-    border-radius: 8px;
     padding: 4px 12px;
   }
 }
