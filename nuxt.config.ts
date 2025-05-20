@@ -48,7 +48,12 @@ export default defineNuxtConfig({
 
   devtools: { enabled: true },
 
-  modules: ["@nuxtjs/tailwindcss", "@primevue/nuxt-module", "@nuxtjs/supabase"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "@primevue/nuxt-module",
+    "@nuxtjs/supabase",
+    "@prisma/nuxt",
+  ],
 
   primevue: {
     options: {
@@ -66,6 +71,15 @@ export default defineNuxtConfig({
   supabase: {
     redirect: false,
     serviceKey: process.env.SUPABASE_SERVICE_KEY,
+  },
+
+  vite: {
+    resolve: {
+      alias: {
+        ".prisma/client/index-browser":
+          "./node_modules/.prisma/client/index-browser.js",
+      },
+    },
   },
 
   tailwindcss: {

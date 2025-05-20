@@ -1,0 +1,105 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model locations {
+  id                   String                 @id(map: "location_details_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                 String?                @db.VarChar
+  phone                String?                @db.VarChar
+  email                String?                @db.VarChar
+  street               String?                @db.VarChar
+  suburb               String?                @db.VarChar
+  zip_code             String?                @db.VarChar
+  state                String?                @db.VarChar
+  council_name         String?                @db.VarChar
+  council_region       String?                @db.VarChar
+  council_website      String?                @db.VarChar
+  seo_title            String?                @db.VarChar
+  seo_description      String?
+  site_description     String?
+  entry_fees           Json?                  @db.Json
+  operating_hours      Json?                  @db.Json
+  social_links         Json?                  @db.Json
+  created_at           DateTime               @default(now()) @db.Timestamptz(6)
+  role_locations       role_locations[]
+  services_by_location services_by_location[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model role_locations {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role_id     String    @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  location_id String    @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+  locations   locations @relation(fields: [location_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  roles       roles     @relation(fields: [role_id], references: [id], onDelete: Cascade)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model roles {
+  id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  title          String           @db.VarChar
+  created_at     DateTime         @default(now()) @db.Timestamp(6)
+  role_locations role_locations[]
+  users          users[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model service_details {
+  id                   String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  page_title           String?              @db.VarChar
+  phone                String?              @db.VarChar
+  email                String?              @db.VarChar
+  seo_title            String?              @db.VarChar
+  seo_description      String?
+  page_content         String?
+  created_at           DateTime             @default(now()) @db.Timestamp(6)
+  service_location_id  String               @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  services_by_location services_by_location @relation(fields: [service_location_id], references: [id], onDelete: Cascade)
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model services {
+  id                   String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                 String?                @db.VarChar
+  created_at           DateTime               @default(now()) @db.Timestamptz(6)
+  services_by_location services_by_location[]
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model services_by_location {
+  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  location_id     String            @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  service_id      String            @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at      DateTime          @default(now()) @db.Timestamp(6)
+  is_enabled      Boolean           @default(false)
+  service_details service_details[]
+  locations       locations         @relation(fields: [location_id], references: [id], onDelete: NoAction)
+  services        services          @relation(fields: [service_id], references: [id])
+
+  @@unique([location_id, service_id], map: "services_by_location_unique")
+}
+
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model users {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email      String   @db.VarChar
+  first_name String?  @db.VarChar
+  role_id    String   @default(dbgenerated("'e4471f4f-32e9-4849-9e2a-8e874f15a49a'::uuid")) @db.Uuid
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  roles      roles    @relation(fields: [role_id], references: [id], onDelete: Cascade)
+}
